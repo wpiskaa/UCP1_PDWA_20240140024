@@ -1,1 +1,476 @@
-<source><form action=""></form>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hubungi Tech Community - Bergabunglah dengan komunitas developer Indonesia terbesar.">
+  <title>Kontak & Daftar | Tech Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .form-hero {
+      min-height: 42vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 7rem 2rem 3rem;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,101,132,0.18) 0%, rgba(108,99,255,0.12) 40%, transparent 70%), var(--bg-dark);
+    }
+
+    .info-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(108,99,255,0.4);
+    }
+
+    .info-card .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .info-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .info-card p { font-size: 0.85rem; color: var(--text-secondary); }
+
+    .form-steps {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      justify-content: center;
+    }
+
+    .step {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; color: var(--text-muted);
+    }
+
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .step.active .step-num {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .step-line {
+      flex: 1; height: 1px;
+      background: var(--border);
+      max-width: 60px;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .char-count {
+      text-align: right;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    .skill-chips {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .skill-chip {
+      padding: 0.3rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      transition: var(--transition);
+    }
+
+    .skill-chip.selected {
+      background: rgba(108,99,255,0.15);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .password-wrap { position: relative; }
+    .password-wrap .toggle-pass {
+      position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: var(--text-muted);
+      font-size: 1rem; transition: color 0.2s;
+    }
+    .password-wrap .toggle-pass:hover { color: var(--primary); }
+
+    .form-divider {
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.5rem 0;
+      color: var(--text-muted); font-size: 0.8rem;
+    }
+    .form-divider::before, .form-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    .strength-bar {
+      height: 4px; border-radius: 2px;
+      background: var(--border); margin-top: 0.5rem;
+      overflow: hidden;
+    }
+    .strength-fill {
+      height: 100%; width: 0%; border-radius: 2px;
+      transition: width 0.4s ease, background 0.4s ease;
+    }
+    .strength-text { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">⚡ TechComm</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="form.html" class="active">Kontak</a>
+      <a href="https://getbootstrap.com/" target="_blank" class="btn btn-primary" style="padding:0.45rem 1.1rem;font-size:0.82rem;">Bootstrap →</a>
+    </div>
+    <div class="nav-toggle" id="navToggle">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <div class="form-hero">
+    <div>
+      <div class="hero-badge" style="animation:none;">📨 Hubungi Kami</div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem);">Daftar & <span style="background:linear-gradient(135deg,#6c63ff,#ff6584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Bergabung</span></h1>
+      <p style="color:var(--text-secondary);font-size:1rem;max-width:500px;margin:0.75rem auto 0;">
+        Isi formulir di bawah untuk bergabung dengan komunitas kami atau mengirimkan pertanyaan.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <section class="section" style="padding-top:2rem;">
+    <div class="container">
+
+      <!-- Info Cards -->
+      <div class="info-cards reveal">
+        <div class="info-card">
+          <div class="icon">📍</div>
+          <h4>Alamat</h4>
+          <p>Jl. Raya Sempalai No. 123<br>Kota Contoh, Indonesia</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">📧</div>
+          <h4>Email</h4>
+          <p>info@techcommunity.com<br>support@techcomm.id</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">📞</div>
+          <h4>Telepon</h4>
+          <p>+62 812-3456-7890<br>Senin – Jumat, 09.00–17.00</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">⏰</div>
+          <h4>Jam Operasional</h4>
+          <p>24/7 Online Support<br>Office: 09.00 – 17.00 WIB</p>
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <div class="form-steps reveal">
+        <div class="step active">
+          <div class="step-num">1</div>
+          <span>Data Diri</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step active">
+          <div class="step-num">2</div>
+          <span>Minat</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step active">
+          <div class="step-num">3</div>
+          <span>Pesan</span>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="form-wrapper">
+        <div class="form-card reveal">
+          <form id="techForm" novalidate>
+
+            <!-- Row 1: Nama & NIM -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nama">Nama Lengkap <span>*</span></label>
+                <input type="text" id="nama" name="nama" class="form-control" placeholder="Masukkan nama lengkap" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="nim">NIM / Nomor Identitas</label>
+                <input type="text" id="nim" name="nim" class="form-control" placeholder="Contoh: 20240140024" autocomplete="off">
+              </div>
+            </div>
+
+            <!-- Row 2: Email & Phone -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email <span>*</span></label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="nama@email.com" required autocomplete="email">
+              </div>
+              <div class="form-group">
+                <label for="phone">No. WhatsApp</label>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="08xx-xxxx-xxxx" autocomplete="tel">
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <label for="password">Kata Sandi <span>*</span></label>
+              <div class="password-wrap">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Minimal 8 karakter" required autocomplete="new-password">
+                <button type="button" class="toggle-pass" onclick="togglePassword()" title="Tampilkan password">👁</button>
+              </div>
+              <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+              <div class="strength-text" id="strengthText">Masukkan password untuk cek kekuatan</div>
+            </div>
+
+            <div class="form-divider">Informasi Tambahan</div>
+
+            <!-- Gender -->
+            <div class="form-group">
+              <label>Jenis Kelamin <span>*</span></label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="gender" value="laki-laki" required> Laki-laki
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="gender" value="perempuan"> Perempuan
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="gender" value="lainnya"> Lainnya
+                </label>
+              </div>
+            </div>
+
+            <!-- Tanggal Lahir & Kota -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="tgl_lahir">Tanggal Lahir</label>
+                <input type="date" id="tgl_lahir" name="tgl_lahir" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="kota">Kota Asal</label>
+                <select id="kota" name="kota" class="form-control">
+                  <option value="">-- Pilih Kota --</option>
+                  <option value="jakarta">Jakarta</option>
+                  <option value="surabaya">Surabaya</option>
+                  <option value="bandung">Bandung</option>
+                  <option value="malang">Malang</option>
+                  <option value="yogyakarta">Yogyakarta</option>
+                  <option value="bali">Bali</option>
+                  <option value="semarang">Semarang</option>
+                  <option value="lainnya">Kota Lainnya</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Topik -->
+            <div class="form-group">
+              <label for="topik">Topik / Kategori <span>*</span></label>
+              <select id="topik" name="topik" class="form-control" required>
+                <option value="">-- Pilih Topik --</option>
+                <option value="bergabung">Ingin Bergabung sebagai Member</option>
+                <option value="workshop">Pendaftaran Workshop</option>
+                <option value="hackathon">Informasi Hackathon</option>
+                <option value="kolaborasi">Ajakan Kolaborasi</option>
+                <option value="sponsorship">Sponsorship / Partnership</option>
+                <option value="lainnya">Pertanyaan Lainnya</option>
+              </select>
+            </div>
+
+            <!-- Skills -->
+            <div class="form-group">
+              <label>Skill / Keahlian (pilih semua yang sesuai)</label>
+              <div class="skill-chips" id="skillChips">
+                <button type="button" class="skill-chip" data-skill="HTML/CSS">HTML/CSS</button>
+                <button type="button" class="skill-chip" data-skill="JavaScript">JavaScript</button>
+                <button type="button" class="skill-chip" data-skill="Python">Python</button>
+                <button type="button" class="skill-chip" data-skill="React">React</button>
+                <button type="button" class="skill-chip" data-skill="Node.js">Node.js</button>
+                <button type="button" class="skill-chip" data-skill="UI/UX Design">UI/UX Design</button>
+                <button type="button" class="skill-chip" data-skill="Data Science">Data Science</button>
+                <button type="button" class="skill-chip" data-skill="Mobile Dev">Mobile Dev</button>
+                <button type="button" class="skill-chip" data-skill="DevOps">DevOps</button>
+              </div>
+              <input type="hidden" id="selectedSkills" name="skills">
+            </div>
+
+            <!-- Newsletter -->
+            <div class="form-group">
+              <label>Preferensi Notifikasi</label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="newsletter" value="email" checked> Newsletter Email
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="newsletter" value="whatsapp"> Update WhatsApp
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="newsletter" value="event"> Info Event
+                </label>
+              </div>
+            </div>
+
+            <!-- Pesan -->
+            <div class="form-group">
+              <label for="pesan">Pesan / Pertanyaan <span>*</span></label>
+              <textarea id="pesan" name="pesan" class="form-control" placeholder="Tulis pesan, pertanyaan, atau motivasi kamu bergabung..." required maxlength="500"></textarea>
+              <div class="char-count"><span id="charCount">0</span>/500 karakter</div>
+            </div>
+
+            <!-- Persetujuan -->
+            <div class="form-group">
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="agree" id="agree" required>
+                  Saya menyetujui <a href="#" style="color:var(--primary);">syarat & ketentuan</a> serta <a href="#" style="color:var(--primary);">kebijakan privasi</a> Tech Community.
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
+                🚀 Kirim & Bergabung
+              </button>
+              <button type="reset" class="btn btn-outline" onclick="resetForm()">↺ Reset</button>
+            </div>
+
+          </form>
+
+          <!-- Result -->
+          <div class="form-result" id="formResult"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AUDIO PLAYER ===== -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="media-box reveal" style="max-width:600px;margin:0 auto;">
+        <div class="media-box-header">
+          <div class="dot" style="background:#ff6584"></div>
+          <div class="dot" style="background:#f9ca24"></div>
+          <div class="dot" style="background:#6bdb8f"></div>
+          🎵 Musik Pengiring
+        </div>
+        <audio controls style="width:100%;">
+          <source src="audio/Bernadya - Kita Buat Menyenangkan (Official Lyric Video).mp3" type="audio/mpeg">
+          Browser Anda tidak mendukung audio.
+        </audio>
+        <div class="media-info">
+          <h4>🎶 Bernadya – Kita Buat Menyenangkan</h4>
+          <p>Nikmati musik sambil mengisi formulir. Tetap semangat! ✨</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-brand">⚡ TechComm</div>
+    <p class="footer-desc">Komunitas teknologi dan inovasi digital terdepan untuk para developer Indonesia.</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="form.html">Kontak</a>
+      <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>
+    </div>
+    <p class="footer-copy">
+      © 2026 <span>Tech Community</span> · Dibuat dengan ❤️ oleh <span>Hafiz Kurniawan</span> · NIM: 20240140024
+    </p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Password visibility toggle
+    function togglePassword() {
+      const pw = document.getElementById('password');
+      pw.type = pw.type === 'password' ? 'text' : 'password';
+    }
+
+    // Password strength
+    document.getElementById('password').addEventListener('input', function() {
+      const val = this.value;
+      const fill = document.getElementById('strengthFill');
+      const text = document.getElementById('strengthText');
+      let strength = 0;
+      if (val.length >= 8) strength++;
+      if (/[A-Z]/.test(val)) strength++;
+      if (/[0-9]/.test(val)) strength++;
+      if (/[^A-Za-z0-9]/.test(val)) strength++;
+      const colors = ['', '#ef4444', '#f97316', '#eab308', '#22c55e'];
+      const labels = ['', 'Lemah 🔴', 'Sedang 🟠', 'Kuat 🟡', 'Sangat Kuat 🟢'];
+      fill.style.width = (strength * 25) + '%';
+      fill.style.background = colors[strength] || 'transparent';
+      text.textContent = val.length === 0 ? 'Masukkan password untuk cek kekuatan' : labels[strength];
+    });
+
+    // Char count
+    document.getElementById('pesan').addEventListener('input', function() {
+      document.getElementById('charCount').textContent = this.value.length;
+    });
+
+    // Skill chips
+    const chips = document.querySelectorAll('.skill-chip');
+    const selectedSkillsInput = document.getElementById('selectedSkills');
+    const selectedSkills = new Set();
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const skill = chip.dataset.skill;
+        if (selectedSkills.has(skill)) {
+          selectedSkills.delete(skill);
+          chip.classList.remove('selected');
+        } else {
+          selectedSkills.add(skill);
+          chip.classList.add('selected');
+        }
+        selectedSkillsInput.value = [...selectedSkills].join(', ');
+      });
+    });
+
+    // Reset form helper
+    function resetForm() {
+      chips.forEach(c => c.classList.remove('selected'));
+      selectedSkills.clear();
+      selectedSkillsInput.value = '';
+      document.getElementById('charCount').textContent = '0';
+      document.getElementById('strengthFill').style.width = '0';
+      document.getElementById('strengthText').textContent = 'Masukkan password untuk cek kekuatan';
+      document.getElementById('formResult').classList.remove('show');
+    }
+  </script>
+</body>
+</html>

@@ -1,5 +1,274 @@
-<source img src="image-file.jpg" alt="Deskripsi Gambar">
-  </div>   
-</audio>    
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tech Community Gallery - Kumpulan foto dan momen terbaik komunitas teknologi kami.">
+  <title>Gallery | Tech Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .gallery-hero {
+      min-height: 45vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 7rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(108,99,255,0.25) 0%, transparent 70%), var(--bg-dark);
+    }
+    .gallery-hero-content { position: relative; z-index: 1; }
+    .gallery-stats {
+      display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .g-stat {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.88rem; color: var(--text-secondary);
+    }
+    .g-stat strong { color: var(--primary); font-weight: 700; }
+
+    /* Masonry-like grid */
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 1.25rem;
+    }
+    .gallery-masonry .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1.25rem;
+      aspect-ratio: unset;
+    }
+    .gallery-masonry .gallery-item img {
+      width: 100%;
+      height: auto;
+      min-height: 180px;
+      object-fit: cover;
+    }
+
+    /* Placeholder images using SVG gradients */
+    .img-placeholder {
+      width: 100%; display: block;
+      background: linear-gradient(135deg, var(--bg-card), var(--bg-card2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      color: rgba(108,99,255,0.3);
+    }
+
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 12px; }
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      width: 40px; height: 40px; background: rgba(255,255,255,0.1);
+      border: none; color: white; font-size: 1.2rem; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(108,99,255,0.5); }
+
+    @media(max-width: 768px) {
+      .gallery-masonry { columns: 2; }
+    }
+    @media(max-width: 480px) {
+      .gallery-masonry { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-brand">⚡ TechComm</a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="form.html">Kontak</a>
+      <a href="https://getbootstrap.com/" target="_blank" class="btn btn-primary" style="padding:0.45rem 1.1rem;font-size:0.82rem;">Bootstrap →</a>
+    </div>
+    <div class="nav-toggle" id="navToggle">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <div class="gallery-hero">
+    <div class="gallery-hero-content">
+      <div class="hero-badge" style="animation:none;"><span class="dot"></span> Galeri Foto</div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3.5rem);">Momen Komunitas <span style="background:linear-gradient(135deg,#6c63ff,#ff6584);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Terbaik</span></h1>
+      <p style="color:var(--text-secondary);font-size:1rem;max-width:500px;margin:0.75rem auto 0;">
+        Abadikan setiap perjalanan, event, dan momen berharga bersama ribuan member Tech Community.
+      </p>
+      <div class="gallery-stats">
+        <div class="g-stat">📷 <strong>50+</strong> Foto</div>
+        <div class="g-stat">🎉 <strong>20+</strong> Event</div>
+        <div class="g-stat">👥 <strong>5K+</strong> Member</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GALLERY ===== -->
+  <section class="section">
+    <div class="container">
+      <!-- Filters -->
+      <div class="gallery-filters reveal">
+        <button class="filter-btn active" data-filter="all" id="filter-all">Semua</button>
+        <button class="filter-btn" data-filter="event">Event</button>
+        <button class="filter-btn" data-filter="workshop">Workshop</button>
+        <button class="filter-btn" data-filter="travel">Travel</button>
+        <button class="filter-btn" data-filter="kuliner">Kuliner</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="gallery-masonry reveal">
+
+        <!-- Photo 1: ngakakaja.jpg (actual file) -->
+        <div class="gallery-item reveal" data-category="travel" data-src="foto/ngakakaja.jpg">
+          <img src="foto/ngakakaja.jpg" alt="Foto Komunitas - Malang Adventure">
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-content">
+              <h4>🗺️ Malang Adventure</h4>
+              <p>Travel · 2026</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generated placeholder items -->
+        <div class="gallery-item reveal" data-category="event" data-src="foto/ngakakaja.jpg">
+          <div class="img-placeholder" style="height:220px;border-radius:0;">🎉</div>
+          <div class="gallery-overlay" style="opacity:1;background:linear-gradient(to top,rgba(15,14,23,0.9),transparent);">
+            <div class="gallery-overlay-content">
+              <h4>🎉 Tech Conference 2026</h4>
+              <p>Event · Jakarta</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal" data-category="workshop" data-src="foto/ngakakaja.jpg">
+          <div class="img-placeholder" style="height:180px;border-radius:0;background:linear-gradient(135deg,#1a1a2e,#16213e);">💻</div>
+          <div class="gallery-overlay" style="opacity:1;background:linear-gradient(to top,rgba(15,14,23,0.9),transparent);">
+            <div class="gallery-overlay-content">
+              <h4>💻 Web Dev Workshop</h4>
+              <p>Workshop · Surabaya</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal" data-category="kuliner" data-src="foto/ngakakaja.jpg">
+          <div class="img-placeholder" style="height:200px;border-radius:0;background:linear-gradient(135deg,#2d1b33,#1a1a2e);">🍜</div>
+          <div class="gallery-overlay" style="opacity:1;background:linear-gradient(to top,rgba(15,14,23,0.9),transparent);">
+            <div class="gallery-overlay-content">
+              <h4>🍜 Kuliner Malang</h4>
+              <p>Kuliner · Malang</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal" data-category="event" data-src="foto/ngakakaja.jpg">
+          <div class="img-placeholder" style="height:240px;border-radius:0;background:linear-gradient(135deg,#0f3460,#16213e);">🏆</div>
+          <div class="gallery-overlay" style="opacity:1;background:linear-gradient(to top,rgba(15,14,23,0.9),transparent);">
+            <div class="gallery-overlay-content">
+              <h4>🏆 Hackathon Finals</h4>
+              <p>Event · Bandung</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal" data-category="travel" data-src="foto/ngakakaja.jpg">
+          <div class="img-placeholder" style="height:190px;border-radius:0;background:linear-gradient(135deg,#1a1a2e,#0f0e17);">🌄</div>
+          <div class="gallery-overlay" style="opacity:1;background:linear-gradient(to top,rgba(15,14,23,0.9),transparent);">
+            <div class="gallery-overlay-content">
+              <h4>🌄 Bromo Sunrise</h4>
+              <p>Travel · Probolinggo</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal" data-category="workshop" data-src="foto/ngakakaja.jpg">
+          <div class="img-placeholder" style="height:210px;border-radius:0;background:linear-gradient(135deg,#16213e,#1a1a2e);">🤖</div>
+          <div class="gallery-overlay" style="opacity:1;background:linear-gradient(to top,rgba(15,14,23,0.9),transparent);">
+            <div class="gallery-overlay-content">
+              <h4>🤖 AI/ML Bootcamp</h4>
+              <p>Workshop · Online</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal" data-category="kuliner" data-src="foto/ngakakaja.jpg">
+          <div class="img-placeholder" style="height:180px;border-radius:0;background:linear-gradient(135deg,#2a1a2e,#1a1a2e);">☕</div>
+          <div class="gallery-overlay" style="opacity:1;background:linear-gradient(to top,rgba(15,14,23,0.9),transparent);">
+            <div class="gallery-overlay-content">
+              <h4>☕ Coffee Meetup</h4>
+              <p>Kuliner · Yogyakarta</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery-item reveal" data-category="event" data-src="foto/ngakakaja.jpg">
+          <div class="img-placeholder" style="height:230px;border-radius:0;background:linear-gradient(135deg,#0a1628,#16213e);">🎤</div>
+          <div class="gallery-overlay" style="opacity:1;background:linear-gradient(to top,rgba(15,14,23,0.9),transparent);">
+            <div class="gallery-overlay-content">
+              <h4>🎤 Tech Talk Series</h4>
+              <p>Event · Bali</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /gallery-masonry -->
+    </div>
+  </section>
+
+  <!-- ===== VIDEO SECTION ===== -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Video</div>
+        <h2 class="section-title">Video Komunitas</h2>
+      </div>
+      <div class="media-box reveal" style="max-width:700px;margin:0 auto;">
+        <div class="media-box-header">
+          <div class="dot" style="background:#ff6584"></div>
+          <div class="dot" style="background:#f9ca24"></div>
+          <div class="dot" style="background:#6bdb8f"></div>
+          🎬 Malang Adventure — Full Video
+        </div>
+        <video controls poster="foto/ngakakaja.jpg" style="max-height:400px;">
+          <source src="video/MALANG ADVANTURE.mp4" type="video/mp4">
+          Browser Anda tidak mendukung video.
+        </video>
+        <div class="media-info">
+          <h4>🗺️ Malang Adventure — Perjalanan Komunitas 2026</h4>
+          <p>Dokumentasi perjalanan seru anggota Tech Community menjelajahi kota Malang yang kaya budaya dan kuliner.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-brand">⚡ TechComm</div>
+    <p class="footer-desc">Komunitas teknologi dan inovasi digital terdepan untuk para developer Indonesia.</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="form.html">Kontak</a>
+      <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>
+    </div>
+    <p class="footer-copy">
+      © 2026 <span>Tech Community</span> · Dibuat dengan ❤️ oleh <span>Hafiz Kurniawan</span> · NIM: 20240140024
+    </p>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">✕</button>
+    <img src="" alt="Preview" id="lightboxImg">
+  </div>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
